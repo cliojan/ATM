@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ATM">
         <activity
+            android:name=".MaterialActivity"
+            android:exported="false"
+            android:label="@string/title_activity_material"
+            android:theme="@style/Theme.ATM.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
