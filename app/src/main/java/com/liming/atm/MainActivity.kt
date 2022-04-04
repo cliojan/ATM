@@ -14,12 +14,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_material)    
+    /*
         setContentView(R.layout.activity_main)
         if(!login){
             Intent(this,LoginActivity::class.java).apply {
                 startActivityForResult(this,RC_LOGIN)
             }
         }
+        
+         */
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
