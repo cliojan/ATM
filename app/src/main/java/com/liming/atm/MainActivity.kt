@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class MainActivity : AppCompatActivity() {
     companion object {
         val RC_LOGIN = 30
+        val REQUEST_CAMERA = 50
     }
     var login = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_help ->{
 
+            }
+            R.id.action_camera -> {
+                val camera = Intent(this,CameraActivity::class.java)
+                startActivityForResult(camera,REQUEST_CAMERA)
             }
         }
         return super.onOptionsItemSelected(item)
