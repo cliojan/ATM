@@ -1,6 +1,7 @@
 package com.liming.atm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
@@ -37,17 +38,28 @@ class MaterialActivity : AppCompatActivity() {
             Contact("Jennifer","66666666"),
             Contact("Nick","88888888"),
             Contact("Justin","99999999"))
+
         recycler.setHasFixedSize(true)
         recycler.layoutManager = LinearLayoutManager(this)
+
         val adapter = object : RecyclerView.Adapter<ContactViewHolder>() {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ContactViewHolder {
-                val view = layoutInflater.inflate(R.layout.contact_row,parent,false)
-                return ContactViewHolder(view)
-            }
+
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+                :ContactViewHolder {
+                    val view = layoutInflater.inflate(R.layout.contact_row,parent,false)
+                    Log.d("LIming Log:","ContactViewHolder")
+                    return ContactViewHolder(view)
+                }
+
             override fun getItemCount():Int {
-                return contacts.size
+                var Size = contacts.size
+                Log.d("List size:",Size.toString())
+                return Size
             }
+
             override fun onBindViewHolder(holder: ContactViewHolder,position: Int){
+                Log.d("Liming Log:","onBindViewHolder")
+                Log.d("Liming Position",position.toString())
                 holder.name.setText(contacts.get(position).name)
                 holder.phone.setText(contacts.get(position).phone)
             }
