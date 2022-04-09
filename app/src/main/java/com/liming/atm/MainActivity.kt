@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                 val camera = Intent(this,CameraActivity::class.java)
                 startActivityForResult(camera,REQUEST_CAMERA)
             }
+            R.id.action_expense ->{
+                val exp = Intent(this,ExpenseActivity::class.java)
+                startActivity(exp)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
