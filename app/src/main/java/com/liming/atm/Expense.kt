@@ -7,11 +7,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Expense (
-    @NonNull
     @ColumnInfo(name="dateAt")
     var date:String,
     var info:String,
-    var account:Int) {
+    var amount:Int){
     @PrimaryKey(autoGenerate = true)
-    var id:Long=0
+    var id:Long = 0
 }
