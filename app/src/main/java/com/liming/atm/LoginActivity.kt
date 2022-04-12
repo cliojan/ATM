@@ -1,12 +1,18 @@
 package com.liming.atm
 
 import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +28,36 @@ class LoginActivity : AppCompatActivity() {
     fun login(view: View){
         val userid = ed_userid.text.toString()
         val passwd = ed_passwd.text.toString()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val result:String =
+                URL("https://atm201605.appspot.com/login?uid=$userid&pw=$passwd").readText()
+            Log.d("Liming",result)
+
+            if(result == "1"){
+                getSharedPreferences("ATM", Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("PREF_USERID",userid)
+                    .apply()
+                runOnUiThread{
+                    Toast.makeText(this@LoginActivity,"登入成功",Toast.LENGTH_LONG).show()
+                }
+
+                intent.putExtra("LOGIN_USERID",userid)
+                intent.putExtra("LOGIN_PASSWD",passwd)
+                setResult(Activity.RESULT_OK,intent)
+                finish()
+            }else{
+                runOnUiThread {
+                    AlertDialog.Builder(this@LoginActivity)
+                        .setTitle("ATM")
+                        .setMessage("登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show()
+                }
+            }
+        }
+/*
         if(userid == "liming" && passwd == "1234"){
             // 把 user id & password存入 shared_prefs 目錄的 atm.xml檔案中
             getSharedPreferences("atm",MODE_PRIVATE)
@@ -47,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                 .setPositiveButton("OK",null)
                 .show()
         }
-
+*/
     }
     fun cancel(view:View){
 
