@@ -3,14 +3,19 @@ package com.liming.atm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
-import java.io.BufferedReader
-import java.net.URL
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.readValue
+//import java.io.BufferedReader
+//import java.net.URL
 
 class TransActivity : AppCompatActivity() {
     companion object {
@@ -29,7 +34,9 @@ class TransActivity : AppCompatActivity() {
              response.body?.run{
              //    Log.d("Liming",string())
                  val json = string()
-                 parseJSON(json)
+                 //parseJSON(json)   // Translate JSON format by "JSON"
+                 //parseGSON(json)   // Translate JSON format by "GSON"
+                 parseJackson(json)  // Translate JSON format by "Jackson"
              }
             /*
             val reader = URL("https://atm201605.appspot.com/h")
@@ -40,6 +47,26 @@ class TransActivity : AppCompatActivity() {
              */
         }
     }
+    // Translate JSON format by "Jackson"
+    private fun parseJackson(json:String){
+        val mapper = ObjectMapper().registerModule(KotlinModule())
+        val trans :List<Transaction> = mapper.readValue(json)
+        trans.forEach { t ->
+            Log.d("Liming", t.toString())
+        }
+    }
+
+    // Translate JSON format by "GSON"
+    private fun parseGSON(json:String){
+        val gson = Gson()
+        val trans = gson.fromJson<ArrayList<Transaction>>(json,
+        object: TypeToken<ArrayList<Transaction>>(){}.type)
+        trans.forEach {t ->
+            Log.d("Liming",t.toString())
+        }
+    }
+
+    // Translate JSON format by "JSON"
     private fun parseJSON(json: String) {
         val trans = mutableListOf<Transaction>()
         val array = JSONArray(json)
