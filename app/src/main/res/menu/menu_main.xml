@@ -26,6 +26,10 @@
         android:id="@+id/action_chat"
         android:title="Chat" />
     <item
+        android:id="@+id/action_work"
+        android:title="Work"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_help"
         android:title="說明"
         app:showAsAction="never" />

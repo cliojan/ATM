@@ -7,7 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.android.synthetic.main.activity_login.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -66,6 +70,14 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_chat -> {
                 startActivity(Intent(this,ChatActivity::class.java))
+            }
+            R.id.action_work -> {
+                val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
+                    .build()
+                WorkManager.getInstance(this)
+                    .enqueue(workRequest)
+                val sdf = SimpleDateFormat("HH:MM:SS")
+                Log.d("Liming Main -","start: ${sdf.format(Date())}")
             }
             R.id.action_help -> {
                 Log.d("Liming","On Help item")
