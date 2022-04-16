@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
         val userid = ed_userid.text.toString()
         val passwd = ed_passwd.text.toString()
 
+/*      // ***** Login Internet account *****
         CoroutineScope(Dispatchers.IO).launch {
             val result:String =
                 URL("https://atm201605.appspot.com/login?uid=$userid&pw=$passwd").readText()
@@ -57,7 +58,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-/*
+             */
+
+        // ***** Login Local machine account *****
         if(userid == "liming" && passwd == "1234"){
             // 把 user id & password存入 shared_prefs 目錄的 atm.xml檔案中
             getSharedPreferences("atm",MODE_PRIVATE)
@@ -83,7 +86,6 @@ class LoginActivity : AppCompatActivity() {
                 .setPositiveButton("OK",null)
                 .show()
         }
-*/
     }
     fun cancel(view:View){
 

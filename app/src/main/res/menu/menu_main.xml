@@ -7,10 +7,6 @@
         android:title="聯絡人"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_help"
-        android:title="說明"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/action_camera"
         android:title="照相機"
         app:showAsAction="ifRoom"/>
@@ -22,4 +18,15 @@
         android:id="@+id/action_transactions"
         android:title="交易記錄"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_service"
+        android:title="Service"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_chat"
+        android:title="Chat" />
+    <item
+        android:id="@+id/action_help"
+        android:title="說明"
+        app:showAsAction="never" />
 </menu>

@@ -1,6 +1,7 @@
 package com.liming.atm
 
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,10 +60,35 @@ class MainActivity : AppCompatActivity() {
             R.id.action_transactions ->{
                 startActivity(Intent(this,TransActivity::class.java))
             }
+            R.id.action_service ->{
+                Log.d("Liming","item service")
+                startService(Intent(this,MyService::class.java))
+            }
+            R.id.action_chat -> {
+                startActivity(Intent(this,ChatActivity::class.java))
+            }
             R.id.action_help -> {
-
+                Log.d("Liming","On Help item")
+                onStart()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // Broadcast setting.
+    val myReceiver = MyReceiver()
+    override fun onStart() {
+        super.onStart()
+        Log.d("Liming","onStart process (Broadcast)")
+        IntentFilter().apply {
+            addAction("com.liming.CHAT_INCOMING")
+        }.also{
+            registerReceiver(myReceiver,it)
+        }
+    }
+    override fun onStop(){
+        super.onStop()
+        Log.d("Liming","onStop process (Broadcast)")
+        unregisterReceiver(myReceiver)
     }
 }
